@@ -5,12 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BugWhisperer — Voice-First Diagnostic Assistant for Developers</title>
   <meta name="description" content="A voice-driven, cognitive-ease debugging companion built with Gemma 2 and ElevenLabs to resolve stack-trace cognitive overload.">
+
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bugwhisperer.onrender.com">
+  <meta property="og:title" content="BugWhisperer — Voice-First Diagnostic Assistant for Developers">
+  <meta property="og:description" content="A voice-driven, cognitive-ease debugging companion built with Gemma 2 and ElevenLabs to resolve stack-trace cognitive overload.">
+  <meta property="og:image" content="/preview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://bugwhisperer.onrender.com">
+  <meta name="twitter:title" content="BugWhisperer — Voice-First Diagnostic Assistant for Developers">
+  <meta name="twitter:description" content="A voice-driven, cognitive-ease debugging companion built with Gemma 2 and ElevenLabs to resolve stack-trace cognitive overload.">
+  <meta name="twitter:image" content="/preview.png">
+
+  <link rel="icon" type="image/png" href="/preview.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="theme-dark">
+<body class="theme-light">
   <div class="app-shell" id="appContainer">
     <!-- Precision Top Bar -->
     <header class="top-nav">
@@ -32,7 +51,7 @@
 
       <div class="nav-actions">
         <div class="status-indicator" id="modelBadge" title="Inference Engine">
-          <span class="status-dot dot-cyan"></span>
+          <span class="status-dot dot-orange"></span>
           <span class="status-label">Gemma 2</span>
         </div>
         <div class="status-indicator" id="voiceBadge" title="Audio Synthesis Engine">
@@ -81,7 +100,7 @@
         <div class="code-editor-frame">
           <div class="editor-header">
             <div class="window-dots">
-              <span></span><span></span><span></span>
+              <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
             </div>
             <span class="editor-title">log_stream.txt</span>
           </div>
@@ -125,7 +144,7 @@
         <!-- Idle State -->
         <div class="state-view idle-view" id="idleState">
           <div class="idle-terminal-icon">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
               <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
               <line x1="12" y1="19" x2="12" y2="22"></line>
@@ -135,11 +154,46 @@
           <p class="state-sub">Paste an error log or choose a preset to generate a targeted single-step fix and audio explanation.</p>
         </div>
 
-        <!-- Loading State -->
+        <!-- Parsing & Skeleton Loading State -->
         <div class="state-view loading-view hidden" id="loadingState">
-          <div class="linear-spinner"></div>
-          <h3 class="state-heading">Gemma 2 Analyzing...</h3>
-          <p class="state-sub">Sanitizing logs, parsing AST frames, and generating empathetic voice script.</p>
+          <!-- Step-by-Step Parsing Progress Tracker -->
+          <div class="parsing-tracker">
+            <div class="tracker-header">
+              <div class="linear-spinner"></div>
+              <div class="tracker-header-info">
+                <span class="tracker-title" id="trackerTitle">Processing Error Stream</span>
+                <span class="tracker-sub" id="trackerSub">Gemma 2 Cognitive Diagnostic Pipeline</span>
+              </div>
+            </div>
+            <div class="tracker-steps">
+              <div class="step-item step-completed" id="stepSanitize">
+                <span class="step-badge">✓</span>
+                <span class="step-label">Sanitizing file paths & ANSI log codes</span>
+              </div>
+              <div class="step-item step-active" id="stepReason">
+                <span class="step-badge">⟳</span>
+                <span class="step-label">Gemma 2 AST Error Root-Cause Reasoning</span>
+              </div>
+              <div class="step-item step-pending" id="stepVoice">
+                <span class="step-badge">3</span>
+                <span class="step-label">Synthesizing ElevenLabs Empathetic Audio</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- High-Fidelity Skeleton Screen Preview -->
+          <div class="skeleton-container">
+            <div class="skeleton-audio-bar shimmer"></div>
+            <div class="skeleton-alert shimmer"></div>
+            <div class="skeleton-cause shimmer"></div>
+            <div class="skeleton-card shimmer">
+              <div class="skeleton-line w-30"></div>
+              <div class="skeleton-line w-80"></div>
+              <div class="skeleton-code-box"></div>
+              <div class="skeleton-line w-60"></div>
+            </div>
+            <div class="skeleton-footer shimmer"></div>
+          </div>
         </div>
 
         <!-- Active Diagnosis Content -->

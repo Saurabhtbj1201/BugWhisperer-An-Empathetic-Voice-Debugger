@@ -27,6 +27,11 @@ const idleState = document.getElementById('idleState');
 const loadingState = document.getElementById('loadingState');
 const diagnosisContainer = document.getElementById('diagnosisContainer');
 
+const stepSanitize = document.getElementById('stepSanitize');
+const stepReason = document.getElementById('stepReason');
+const stepVoice = document.getElementById('stepVoice');
+const trackerTitle = document.getElementById('trackerTitle');
+
 const playPauseBtn = document.getElementById('playPauseBtn');
 const playIcon = document.getElementById('playIcon');
 const audioStatus = document.getElementById('audioStatus');
@@ -113,7 +118,7 @@ if (copyCodeBtn) {
   copyCodeBtn.addEventListener('click', () => {
     navigator.clipboard.writeText(codeSnippet.innerText).then(() => {
       copyBtnText.textContent = "Copied!";
-      copyCodeBtn.style.color = "#10b981";
+      copyCodeBtn.style.color = "#ea580c";
       setTimeout(() => {
         copyBtnText.textContent = "Copy Fix";
         copyCodeBtn.style.color = "";
@@ -122,7 +127,7 @@ if (copyCodeBtn) {
   });
 }
 
-// Sharp Canvas Audio Waveform
+// Sharp Canvas Audio Waveform for Light Orange Theme
 function drawWaveform() {
   animationFrameId = requestAnimationFrame(drawWaveform);
   ctx.clearRect(0, 0, waveformCanvas.width, waveformCanvas.height);
@@ -132,9 +137,9 @@ function drawWaveform() {
   const centerY = height / 2;
 
   if (!isPlaying) {
-    // Sharp subtle baseline
-    ctx.strokeStyle = "rgba(56, 189, 248, 0.25)";
-    ctx.lineWidth = 1;
+    // Subtle warm baseline
+    ctx.strokeStyle = "rgba(234, 88, 12, 0.3)";
+    ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.moveTo(0, centerY);
     ctx.lineTo(width, centerY);
@@ -142,7 +147,7 @@ function drawWaveform() {
     return;
   }
 
-  // Active sharp frequency bars
+  // Active sharp frequency bars with warm orange & emerald accents
   const numBars = 32;
   const barWidth = 3;
   const gap = (width - numBars * barWidth) / (numBars - 1);
@@ -153,7 +158,7 @@ function drawWaveform() {
     const x = i * (barWidth + gap);
     const y = centerY - barHeight / 2;
 
-    ctx.fillStyle = i % 2 === 0 ? "#38bdf8" : "#10b981";
+    ctx.fillStyle = i % 2 === 0 ? "#ea580c" : "#059669";
     ctx.fillRect(Math.floor(x), Math.floor(y), barWidth, Math.floor(barHeight));
   }
 }
@@ -223,6 +228,28 @@ companionAudio.addEventListener('ended', () => {
   stopAudio();
 });
 
+// Update parsing steps dynamically
+function setTrackerStep(step) {
+  if (step === 1) {
+    stepSanitize.className = "step-item step-active";
+    stepReason.className = "step-item step-pending";
+    stepVoice.className = "step-item step-pending";
+    trackerTitle.textContent = "Sanitizing logs & stripping ANSI paths...";
+  } else if (step === 2) {
+    stepSanitize.className = "step-item step-completed";
+    stepSanitize.querySelector('.step-badge').textContent = "✓";
+    stepReason.className = "step-item step-active";
+    stepVoice.className = "step-item step-pending";
+    trackerTitle.textContent = "Gemma 2 Cognitive AST Root-Cause Reasoning...";
+  } else if (step === 3) {
+    stepSanitize.className = "step-item step-completed";
+    stepReason.className = "step-item step-completed";
+    stepReason.querySelector('.step-badge').textContent = "✓";
+    stepVoice.className = "step-item step-active";
+    trackerTitle.textContent = "Synthesizing empathetic voice guidance...";
+  }
+}
+
 // Submit / Whisper Button
 whisperBtn.addEventListener('click', async () => {
   const errorText = errorInput.value.trim();
@@ -232,14 +259,23 @@ whisperBtn.addEventListener('click', async () => {
     return;
   }
 
+  // Show loading skeleton and parsing tracker
   idleState.classList.add('hidden');
   diagnosisContainer.classList.add('hidden');
   loadingState.classList.remove('hidden');
   stopAudio();
 
+  // Stage 1: Sanitation
+  setTrackerStep(1);
+
   const startTime = performance.now();
 
   try {
+    // Stage 2: Reasoning
+    setTimeout(() => setTrackerStep(2), 350);
+    // Stage 3: Voice
+    setTimeout(() => setTrackerStep(3), 850);
+
     const res = await fetch('/api/debug', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -274,12 +310,15 @@ whisperBtn.addEventListener('click', async () => {
     telemetryProvider.textContent = `Engine: ${d.provider_used || "Gemma 2"}`;
     telemetryLatency.textContent = `Latency: ~${elapsed}ms`;
 
-    loadingState.classList.add('hidden');
-    diagnosisContainer.classList.remove('hidden');
+    // Ensure user sees the clean completion before popping result
+    setTimeout(() => {
+      loadingState.classList.add('hidden');
+      diagnosisContainer.classList.remove('hidden');
 
-    if (voiceCheckbox.checked && currentSpokenScript) {
-      playAudio(data.voice, currentSpokenScript);
-    }
+      if (voiceCheckbox.checked && currentSpokenScript) {
+        playAudio(data.voice, currentSpokenScript);
+      }
+    }, 400);
 
   } catch (err) {
     console.error(err);
@@ -292,7 +331,7 @@ whisperBtn.addEventListener('click', async () => {
 // Explain Simpler Button
 simplerBtn.addEventListener('click', () => {
   if (!currentSpokenScript) return;
-  const simplerSpeech = `Hey, let's keep it simple. Open your file, check the single line highlighted in the blue action box, add the safe check, and run it again.`;
+  const simplerSpeech = `Hey, let's keep it simple. Open your file, check the single line highlighted in the orange action box, add the safe check, and run it again.`;
   currentSpokenScript = simplerSpeech;
   playAudio(null, simplerSpeech);
 });

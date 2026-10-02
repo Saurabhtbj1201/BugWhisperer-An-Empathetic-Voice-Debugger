@@ -17,6 +17,16 @@
 
 [**Explore Live Web App**](http://127.0.0.1:8000) • [**DEV Submission Draft**](submission_draft.md) • [**CLI Pipe Guide**](#-cli-terminal-companion) • [**Report Bug**](https://github.com/Saurabhtbj1201/bugwhisperer/issues)
 
+<br/><br/>
+
+<a href="http://127.0.0.1:8000">
+  <img src="./preview.png" alt="BugWhisperer Voice Debugger Interface" width="94%" style="border-radius: 10px; border: 1px solid #fed7aa; box-shadow: 0 10px 30px rgba(234, 88, 12, 0.15);" />
+</a>
+
+<p align="center">
+  <sub>Modern light-orange cognitive interface featuring Gemma 2 root-cause reasoning and ElevenLabs audio companion</sub>
+</p>
+
 </div>
 
 ---
