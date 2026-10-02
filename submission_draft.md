@@ -30,7 +30,7 @@ Then, using **ElevenLabs**, it speaks the guidance aloud in a warm, calming cade
 
 ## Code
 
-{% github your-github-username/bugwhisperer %}
+{% github Saurabhtbj1201/bugwhisperer %}
 
 ---
 
