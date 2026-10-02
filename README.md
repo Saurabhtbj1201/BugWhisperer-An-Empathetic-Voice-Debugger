@@ -12,7 +12,7 @@
 
 ## 🌟 The Story: Who I Built This For
 
-My friend **Alex** is a brilliant developer who has ADHD. When a build breaks or an 80-line red stack trace explodes in the terminal, it immediately triggers cognitive overload, analysis paralysis, and heart-pounding panic. 
+My friend is a brilliant developer who has ADHD. When a build breaks or an 80-line red stack trace explodes in the terminal, it immediately triggers cognitive overload, analysis paralysis, and heart-pounding panic. 
 
 Standard workflows make things worse:
 - Reading long terminal logs is visually overstimulating.
@@ -29,7 +29,7 @@ Standard workflows make things worse:
 - **🎯 The "ONE Next Action" Principle**: Never overwhelms with 5 choices. Isolates the single offending line and provides a minimal fix.
 - **🎙️ Voice-First Delivery (ElevenLabs)**: Reads a custom-tailored, conversational audio script so you don't even have to read the screen.
 - **🧠 Open-Weight AI Core (Gemma 2)**: Powered by Google's Gemma 2 (2B / 9B) open-weights.
-- **🔒 Privacy Shield**: Automatically sanitizes local user paths (`C:\Users\alex\...` -> `~/...`) and ANSI codes before processing.
+- **🔒 Privacy Shield**: Automatically sanitizes local user paths (`C:\Users\username\...` -> `~/...`) and ANSI codes before processing.
 - **🔕 Deep Focus Mode**: One-click toggle that strips away all distractions, leaving only the glowing 1-step fix.
 - **💻 Dual Interface**: Modern Glassmorphic Web Companion + Terminal CLI pipe tool (`npm test 2>&1 | python cli/bugwhisper.py`).
 - **📊 Sentry Agent Tracing**: Real-time observability tracking token consumption, agent latency, and voice roundtrips.

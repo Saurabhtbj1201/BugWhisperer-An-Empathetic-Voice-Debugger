@@ -1,4 +1,4 @@
 Traceback (most recent call last):
-  File "C:\Users\alex\projects\portfolio\services\data_cleaner.py", line 64, in normalize_dataset
+  File "C:\Users\friend\projects\portfolio\services\data_cleaner.py", line 64, in normalize_dataset
     target_metric = records[10]
 IndexError: list index out of range

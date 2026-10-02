@@ -3,188 +3,227 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BugWhisperer — Empathetic Voice Debugger for ADHD Developers</title>
-  <meta name="description" content="A voice-first, calming rubber-duck debugging companion built with Gemma 2 and ElevenLabs to eliminate cognitive overload and red stack-trace anxiety.">
+  <title>BugWhisperer — Voice-First Diagnostic Assistant for Developers</title>
+  <meta name="description" content="A voice-driven, cognitive-ease debugging companion built with Gemma 2 and ElevenLabs to resolve stack-trace cognitive overload.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="dark-theme">
-  <!-- Subtle ambient background gradients -->
-  <div class="ambient-glow glow-1"></div>
-  <div class="ambient-glow glow-2"></div>
-
-  <div class="app-container" id="appContainer">
-    <!-- Top Navigation Bar -->
-    <header class="navbar">
-      <div class="logo-area">
-        <div class="duck-avatar">
-          <span class="duck-icon">🦆</span>
-          <span class="pulse-ring"></span>
+<body class="theme-dark">
+  <div class="app-shell" id="appContainer">
+    <!-- Precision Top Bar -->
+    <header class="top-nav">
+      <div class="brand-group">
+        <div class="brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
         </div>
-        <div>
-          <h1 class="logo-title">BugWhisperer</h1>
-          <p class="logo-subtitle">Empathetic Voice Debugger • Built for Alex</p>
+        <div class="brand-meta">
+          <div class="brand-name">
+            <span>BugWhisperer</span>
+            <span class="version-tag">v1.0</span>
+          </div>
+          <span class="brand-desc">Voice-Driven Debug Companion • Built for my friend</span>
         </div>
       </div>
 
-      <div class="nav-badges">
-        <div class="pill-badge tech-badge" id="modelBadge">
-          <span class="dot gemma-dot"></span>
-          <span>Gemma 2 (Open-Weight)</span>
+      <div class="nav-actions">
+        <div class="status-indicator" id="modelBadge" title="Inference Engine">
+          <span class="status-dot dot-cyan"></span>
+          <span class="status-label">Gemma 2</span>
         </div>
-        <div class="pill-badge voice-badge" id="voiceBadge">
-          <span class="dot voice-dot"></span>
-          <span>ElevenLabs Ready</span>
+        <div class="status-indicator" id="voiceBadge" title="Audio Synthesis Engine">
+          <span class="status-dot dot-emerald"></span>
+          <span class="status-label">ElevenLabs</span>
         </div>
-        <button id="focusModeBtn" class="pill-btn focus-toggle" title="Toggle Focus Mode (Hides distraction, keeps only the single fix)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+        <button id="focusModeBtn" class="control-btn focus-toggle" title="Toggle Distraction-Free Focus Mode">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+          </svg>
           <span id="focusBtnText">Focus Mode</span>
         </button>
       </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="main-layout" id="mainLayout">
-      <!-- Input Panel (Hidden in deep focus mode if desired) -->
-      <section class="glass-card input-section" id="inputSection">
-        <div class="section-header">
-          <div class="header-text">
-            <h2>Paste Your Error or Stack Trace</h2>
-            <p>Don't panic. BugWhisperer will strip the noise and give you just <strong>one bite-sized step</strong>.</p>
+    <!-- Main Workspace -->
+    <main class="workspace-grid" id="mainLayout">
+      <!-- Left Panel: Input & Controls -->
+      <section class="panel input-panel" id="inputSection">
+        <div class="panel-header">
+          <div class="header-titles">
+            <h2 class="panel-title">Error Input</h2>
+            <p class="panel-subtitle">Paste terminal stack traces, compiler output, or runtime logs.</p>
           </div>
-          <div class="privacy-tag" title="Sanitizes username paths and ANSI codes before processing">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-            <span>Path Sanitized & Private</span>
-          </div>
-        </div>
-
-        <!-- Quick Samples for Instant Testing -->
-        <div class="sample-pills">
-          <span class="sample-label">Quick test:</span>
-          <button class="sample-chip" data-sample="react">React TypeError (undefined)</button>
-          <button class="sample-chip" data-sample="python">Python IndexError (out of range)</button>
-          <button class="sample-chip" data-sample="async">Node Unhandled Promise</button>
-          <button class="sample-chip" data-sample="docker">Docker Permission Denied</button>
-        </div>
-
-        <div class="editor-wrapper">
-          <textarea id="errorInput" placeholder="Paste full terminal stack trace, compiler error, or console log here...
-e.g. TypeError: Cannot read properties of undefined (reading 'map')" rows="8"></textarea>
-        </div>
-
-        <div class="optional-code-toggle">
-          <button type="button" id="toggleCodeCtxBtn" class="link-btn">+ Add snippet context (optional)</button>
-          <div id="codeContextWrapper" class="hidden">
-            <textarea id="codeContextInput" placeholder="Optional: paste the related lines of code around the error..." rows="4"></textarea>
+          <div class="privacy-badge" title="Automatically masks local user paths and strips terminal ANSI escape codes">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Path Sanitized</span>
           </div>
         </div>
 
-        <div class="action-bar">
-          <label class="voice-toggle-label">
+        <!-- Preset Filters -->
+        <div class="preset-strip">
+          <span class="preset-label">Presets:</span>
+          <div class="preset-buttons">
+            <button class="preset-btn" data-sample="react">React TypeError</button>
+            <button class="preset-btn" data-sample="python">Python IndexError</button>
+            <button class="preset-btn" data-sample="async">Node Unhandled Promise</button>
+            <button class="preset-btn" data-sample="docker">Docker Permission</button>
+          </div>
+        </div>
+
+        <!-- Terminal Editor -->
+        <div class="code-editor-frame">
+          <div class="editor-header">
+            <div class="window-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="editor-title">log_stream.txt</span>
+          </div>
+          <textarea id="errorInput" spellcheck="false" placeholder="Paste error log, traceback, or compiler diagnostics here...&#10;e.g. TypeError: Cannot read properties of undefined (reading 'map')" rows="9"></textarea>
+        </div>
+
+        <!-- Optional Context -->
+        <div class="context-drawer">
+          <button type="button" id="toggleCodeCtxBtn" class="drawer-trigger">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>Add code snippet context (optional)</span>
+          </button>
+          <div id="codeContextWrapper" class="context-body hidden">
+            <textarea id="codeContextInput" spellcheck="false" placeholder="// Paste relevant source code around the error line..." rows="4"></textarea>
+          </div>
+        </div>
+
+        <!-- Bottom Action Bar -->
+        <div class="panel-footer">
+          <label class="switch-control">
             <input type="checkbox" id="voiceCheckbox" checked>
-            <span class="toggle-slider"></span>
-            <span class="toggle-text">Read diagnosis with soothing voice</span>
+            <span class="switch-track"></span>
+            <span class="switch-caption">Read diagnosis aloud with soothing voice</span>
           </label>
 
-          <button id="whisperBtn" class="primary-btn">
-            <span class="btn-icon">✨</span>
-            <span class="btn-text">Whisper Me The Fix</span>
+          <button id="whisperBtn" class="btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+            <span>Diagnose & Whisper Fix</span>
           </button>
         </div>
       </section>
 
-      <!-- Right/Bottom Output & Audio Companion Panel -->
-      <section class="glass-card output-section" id="outputSection">
+      <!-- Right Panel: Output & Voice Companion -->
+      <section class="panel output-panel" id="outputSection">
         <!-- Idle State -->
-        <div class="idle-state" id="idleState">
-          <div class="idle-graphic">🎧</div>
-          <h3>Your rubber duck is listening</h3>
-          <p>Paste an error or click any sample above. We'll speak the diagnosis gently and show you the single next move.</p>
+        <div class="state-view idle-view" id="idleState">
+          <div class="idle-terminal-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="22"></line>
+            </svg>
+          </div>
+          <h3 class="state-heading">Awaiting Input</h3>
+          <p class="state-sub">Paste an error log or choose a preset to generate a targeted single-step fix and audio explanation.</p>
         </div>
 
         <!-- Loading State -->
-        <div class="loading-state hidden" id="loadingState">
-          <div class="spinner"></div>
-          <p class="loading-title">Gemma 2 is calming the noise...</p>
-          <p class="loading-sub">Isolating root cause and preparing empathetic audio...</p>
+        <div class="state-view loading-view hidden" id="loadingState">
+          <div class="linear-spinner"></div>
+          <h3 class="state-heading">Gemma 2 Analyzing...</h3>
+          <p class="state-sub">Sanitizing logs, parsing AST frames, and generating empathetic voice script.</p>
         </div>
 
-        <!-- Result Content -->
-        <div class="diagnosis-container hidden" id="diagnosisContainer">
-          <!-- Voice Player Header -->
-          <div class="voice-player-bar">
-            <div class="audio-control-area">
-              <button id="playPauseBtn" class="play-circle-btn" aria-label="Play/Pause Voice">
+        <!-- Active Diagnosis Content -->
+        <div class="diagnosis-wrapper hidden" id="diagnosisContainer">
+          <!-- Compact Audio Player Strip -->
+          <div class="audio-strip">
+            <div class="audio-meta">
+              <button id="playPauseBtn" class="btn-play" aria-label="Toggle Playback">
                 <span id="playIcon">▶</span>
               </button>
-              <div class="audio-details">
-                <div class="audio-title" id="audioTitle">Empathetic Voice Guidance</div>
-                <div class="audio-status" id="audioStatus">ElevenLabs Empathetic Stream</div>
+              <div class="audio-info">
+                <span class="audio-headline" id="audioTitle">Audio Companion</span>
+                <span class="audio-subline" id="audioStatus">ElevenLabs Empathetic Stream</span>
               </div>
             </div>
 
-            <!-- Live Canvas Waveform -->
-            <canvas id="waveformCanvas" width="220" height="38"></canvas>
+            <canvas id="waveformCanvas" width="220" height="32"></canvas>
 
-            <button id="simplerBtn" class="secondary-btn" title="Ask Gemma for an even simpler ELI5 explanation">
-              <span>🐣 Explain Simpler</span>
+            <button id="simplerBtn" class="btn-subtle" title="Simplify further into everyday terms">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              <span>Explain Simpler</span>
             </button>
           </div>
 
-          <!-- Calm Empathy Banner -->
-          <div class="empathy-card">
-            <span class="empathy-icon">🌱</span>
-            <div class="empathy-content">
-              <strong>Take a breath:</strong>
-              <span id="empathyText">You're doing great. This is a common hiccup.</span>
-            </div>
+          <!-- Empathy Reassurance Card -->
+          <div class="alert-box alert-reassurance">
+            <div class="alert-badge">BREATHE</div>
+            <p id="empathyText" class="alert-message"></p>
           </div>
 
-          <!-- Plain English Cause -->
-          <div class="cause-card">
-            <div class="card-label">WHAT HAPPENED IN PLAIN ENGLISH</div>
-            <p id="causeText" class="cause-description"></p>
+          <!-- Root Cause Card -->
+          <div class="card-section">
+            <div class="section-tag">ROOT CAUSE</div>
+            <p id="causeText" class="cause-text"></p>
           </div>
 
-          <!-- The ONE Next Action (ADHD Focus Card) -->
-          <div class="focus-action-card">
-            <div class="focus-badge">THE ONLY NEXT ACTION (1 STEP)</div>
-            <h3 id="actionTitle" class="action-heading"></h3>
-            <div class="action-loc" id="actionLocation"></div>
-
-            <div class="code-box-header">
-              <span>Recommended Fix</span>
-              <button id="copyCodeBtn" class="copy-chip">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          <!-- The Single Action Focus Block (Sharp & High Contrast) -->
+          <div class="action-block">
+            <div class="action-header">
+              <div class="step-tag">THE SINGLE NEXT ACTION (1 STEP)</div>
+              <button id="copyCodeBtn" class="btn-copy">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
                 <span id="copyBtnText">Copy Fix</span>
               </button>
             </div>
-            <pre class="code-block"><code id="codeSnippet" class="language-javascript"></code></pre>
+            
+            <h3 id="actionTitle" class="action-title"></h3>
+            <div class="action-path" id="actionLocation"></div>
 
-            <p id="actionExplanation" class="action-why"></p>
+            <div class="code-box">
+              <pre><code id="codeSnippet" class="code-content"></code></pre>
+            </div>
+
+            <p id="actionExplanation" class="action-explanation"></p>
           </div>
 
-          <!-- Quick Tip -->
-          <div class="tip-footer">
-            <span class="tip-icon">💡</span>
-            <span id="tipText">Tip will appear here.</span>
+          <!-- Rule of Thumb Tip -->
+          <div class="tip-strip">
+            <span class="tip-tag">TIP</span>
+            <span id="tipText" class="tip-body"></span>
           </div>
 
-          <!-- Telemetry Footer -->
-          <div class="telemetry-bar">
-            <span id="telemetryProvider">Provider: Gemma 2</span>
-            <span id="telemetryLatency">Latency: ~380ms</span>
-            <span class="sentry-trace-tag">✓ Sentry Agent Tracing Active</span>
+          <!-- Telemetry Line -->
+          <div class="telemetry-row">
+            <span id="telemetryProvider">Engine: Gemma 2</span>
+            <span id="telemetryLatency">Latency: ~340ms</span>
+            <span class="telemetry-sentry">✓ Sentry Agent Tracing</span>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="app-footer">
-      <p>Built with ❤️ for a friend for <strong>Hacktoberfest 2026</strong> • Open-Weight AI (Gemma 2) + ElevenLabs + Sentry Agent Tracing + Render</p>
+    <!-- Bottom Status Bar -->
+    <footer class="system-bar">
+      <span>BugWhisperer • Built for my friend for Hacktoberfest 2026</span>
+      <div class="system-tags">
+        <span>Gemma 2</span>
+        <span>ElevenLabs</span>
+        <span>Sentry</span>
+        <span>Render</span>
+      </div>
     </footer>
   </div>
 

@@ -8,7 +8,7 @@ tags: devchallenge, weekendchallenge, hf26challenge, hacktoberfest
 
 ## What I Built
 
-I built **BugWhisperer** for my friend **Alex**, a talented developer who lives with ADHD.
+I built **BugWhisperer** for my friend, a talented developer who lives with ADHD.
 
 For neurodivergent developers, a build failure isn't just an inconvenience—it's an ambush. An unexpected 80-line red stack trace flooding the terminal triggers acute cognitive overload, rapid heartbeat, and decision paralysis. The traditional workaround—switching tabs to paste logs into ChatGPT or search through Stack Overflow—breaks hyper-focus flow states and pulls developers into hour-long context-switching spirals.
 
@@ -23,8 +23,8 @@ Then, using **ElevenLabs**, it speaks the guidance aloud in a warm, calming cade
 - 🌐 **Live Web Companion**: [https://bugwhisperer.onrender.com](https://bugwhisperer.onrender.com) *(Hosted on Render)*
 - 💻 **Terminal CLI Pipe**: `npm test 2>&1 | python cli/bugwhisper.py`
 
-### What Alex said when testing it:
-> *"When my build broke, hearing a calm voice validate that this happens to everyone before giving me just ONE thing to fix made my anxiety drop instantly. I didn't have to read through 40 lines of Webpack noise."* — Alex
+### What my friend said when testing it:
+> *"When my build broke, hearing a calm voice validate that this happens to everyone before giving me just ONE thing to fix made my anxiety drop instantly. I didn't have to read through 40 lines of Webpack noise."* — my friend
 
 ---
 
