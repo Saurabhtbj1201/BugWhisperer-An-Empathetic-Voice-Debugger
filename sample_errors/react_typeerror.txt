@@ -1,0 +1,5 @@
+TypeError: Cannot read properties of undefined (reading 'avatar')
+    at UserProfileCard (UserProfile.tsx:42:25)
+    at renderWithHooks (react-dom.development.js:15486:18)
+    at mountIndeterminateComponent (react-dom.development.js:20103:13)
+    at beginWork (react-dom.development.js:21626:16)
