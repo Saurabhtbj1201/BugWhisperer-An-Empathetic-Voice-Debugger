@@ -15,11 +15,11 @@
 
 <br/>
 
-[**Explore Live Web App**](http://127.0.0.1:8000) • [**DEV Submission Draft**](submission_draft.md) • [**CLI Pipe Guide**](#-cli-terminal-companion) • [**Report Bug**](https://github.com/Saurabhtbj1201/bugwhisperer/issues)
+[**Explore Live Web App**](https://bugwhisperer.onrender.com/) • [**Project Details**](https://www.gu-saurabh.tech/project/8babe8cb-294b-48c5-8e29-3d280992cefa) • [**DEV Submission Draft**](submission_draft.md) • [**Report Issue**](https://github.com/Saurabhtbj1201/BugWhisperer-An-Empathetic-Voice-Debugger/issues)
 
 <br/><br/>
 
-<a href="http://127.0.0.1:8000">
+<a href="https://bugwhisperer.onrender.com/">
   <img src="./preview.png" alt="BugWhisperer Voice Debugger Interface" width="94%" style="border-radius: 10px; border: 1px solid #fed7aa; box-shadow: 0 10px 30px rgba(234, 88, 12, 0.15);" />
 </a>
 
@@ -122,8 +122,8 @@ flowchart LR
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/Saurabhtbj1201/bugwhisperer.git
-cd bugwhisperer
+git clone https://github.com/Saurabhtbj1201/BugWhisperer-An-Empathetic-Voice-Debugger.git
+cd BugWhisperer-An-Empathetic-Voice-Debugger
 ```
 
 ### 2. Install Dependencies
