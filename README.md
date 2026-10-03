@@ -15,7 +15,7 @@
 
 <br/>
 
-[**Explore Live Web App**](https://bugwhisperer.onrender.com/) • [**Project Details**](https://www.gu-saurabh.tech/project/8babe8cb-294b-48c5-8e29-3d280992cefa) • [**DEV Submission Draft**](submission_draft.md) • [**Report Issue**](https://github.com/Saurabhtbj1201/BugWhisperer-An-Empathetic-Voice-Debugger/issues)
+[**Explore Live Web App**](https://bugwhisperer.onrender.com/) • [**Project Details**](https://www.gu-saurabh.tech/project/8babe8cb-294b-48c5-8e29-3d280992cefa) • [**DEV Submission Draft**](submission_draft.md) • [**Report Issue**](https://github.com/Saurabhtbj1201/BugWhisperer-Voice-First-Diagnostic-Assistant-for-Developers/issues)
 
 <br/><br/>
 
@@ -122,8 +122,8 @@ flowchart LR
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/Saurabhtbj1201/BugWhisperer-An-Empathetic-Voice-Debugger.git
-cd BugWhisperer-An-Empathetic-Voice-Debugger
+git clone https://github.com/Saurabhtbj1201/BugWhisperer-Voice-First-Diagnostic-Assistant-for-Developers.git
+cd BugWhisperer-Voice-First-Diagnostic-Assistant-for-Developers
 ```
 
 ### 2. Install Dependencies
